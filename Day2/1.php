@@ -9,41 +9,49 @@ function solve() {
   }
 
   $myfile = fopen(FILE_NAME, "r");
-  $totalSum = 0;
+  $idSum = 0;
 
   while (!feof($myfile)) {
     //get one line per loop
     $input = fgets($myfile);
-    $totalSum += validGameID(12, 13, 14, $input);
+    $idSum += possibleGameID(12, 13, 14, $input);
   }
 
   fclose($myfile);
-  return $totalSum;
+  return $idSum;
 }
 
-function validGameID($red, $green, $blue, $input) {
+function possibleGameID($redBound, $greenBound, $blueBound, $input) {
+  // remove spaces
   $input = str_replace(' ', '', $input);
+  // capture id
   $id = preg_match('/Game(\d+)/', $input, $matches) ? $matches[1] : 0;
+  // remove prefix i.e. Game *:
   $input = preg_replace('/Game\d+:/', '', $input);
 
+  // capture numbers before each color
   $blueNumbers = preg_match_all('/(\d+)blue/', $input, $matches) ? $matches[1] : 0;
   $greenNumbers = preg_match_all('/(\d+)green/', $input, $matches) ? $matches[1] : 0;
   $redNumbers = preg_match_all('/(\d+)red/', $input, $matches) ? $matches[1] : 0;
 
-  return isGameValid($blueNumbers, $blue) && isGameValid($greenNumbers, $green) && isGameValid($redNumbers, $red) ? (int)$id : 0;
+  // return id if all colors of cubes are possible for this game, 0 otherwise
+  return isGamePossible($blueNumbers, $blueBound) && isGamePossible($greenNumbers, $greenBound) && isGamePossible($redNumbers, $redBound) ? (int)$id : 0;
 }
 
-function isGameValid($cubeNums, $bound) {
+function isGamePossible($cubeNums, $bound) {
+  // no numbers captured for this color => 0 makes this game possible since it must be less than bound
   if (!$cubeNums) {
     return true;
   }
 
+  // if numbers captured bigger than bound, this game is impossible
   forEach($cubeNums as $number) {
     if ((int)$number > $bound) {
       return false;
     }
   }
 
+  // otherwise game is possible
   return true;
 }
 
