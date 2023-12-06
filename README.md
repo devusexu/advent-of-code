@@ -11,3 +11,7 @@ Simply finding numeric character then return.
 ## Day 2
 - Regular Expression: capture group
 - Prefix $ with function name make me stuck so long(like $isGamePossible($blueNumbers, $blueBound)) => better stop when you aren't awake
+
+## Day 3
+serialize!  
+wondering if I makes things too complicated / maybe I should read some discussions online to improve, but on the other hand I want to solve it on my own
