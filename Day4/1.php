@@ -41,7 +41,7 @@ function getLinePoints($line) {
   return $points;
 }
 
- // create a associative array like set: [number => true]
+// create a associative array like set: [number => true]
 function getSet($array) {
   $newSet = [];
   forEach($array as $element) {
