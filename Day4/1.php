@@ -20,10 +20,8 @@ function solve() {
 }
 
 function getLinePoints($line) {
-  // remove 'Card *:' in each line
-  $lineStartRemoved = preg_replace('/Card\s\d+:/', '', $line); 
-  $winningNumbers = getWinningNumbers($lineStartRemoved);
-  $yourNumbers = getYourNumbers($lineStartRemoved);
+  $winningNumbers = getWinningNumbers($line);
+  $yourNumbers = getYourNumbers($line);
   $winningNumbersSet = getSet($winningNumbers);
 
   $points = 0;
